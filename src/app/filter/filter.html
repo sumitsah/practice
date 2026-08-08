@@ -1,0 +1,23 @@
+<!-- <input type="text" [(ngModel)]="searchStr">
+<br>
+@for (item of results(); track $index) {
+<span> Title </span> : <span> {{item.title}}</span>
+<br>
+}@empty {
+<div> No products found!</div>
+} -->
+
+<input type="text" [(ngModel)]="searchStr">
+<br>
+
+@if (users.isLoading()) {
+<div>Loading...</div>
+} @else if (users.error()) {
+<div>Error while fecthing users</div>
+}@else {
+@for (user of users.value(); track $index) {
+<span> Title </span> : <span> {{user.name}}</span>
+<br>
+}@empty {
+<div> No Users found!</div>
+}}

@@ -1,0 +1,20 @@
+<h2> Welcome to the world of Signals</h2>
+<h4>{{ title()}}</h4>
+<h4>{{ user().age}}</h4>
+<h4>{{ normalVar.update }}</h4>
+
+<button (click)="changeAge()">
+    Change
+</button>
+
+<br>
+
+<button (click)="increment()">Increment</button>
+
+<h3>
+
+    <div>Normal Variable Count: {{ normalCounter }}</div>
+    <div>Signal Count: {{ signalCounter() }}</div>
+    <div>Double Count: {{ doubleCounter() }}</div>
+
+</h3>
