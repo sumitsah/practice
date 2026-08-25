@@ -11,3 +11,25 @@ body {
 }
 
 @import "tailwindcss";
+
+.form-container {
+    margin-inline: auto;
+    max-width: 300px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-field {
+    margin-inline: 4px;
+    border: 1px solid black;
+    display: inline-block;
+}
+
+.form-group {
+    display: grid;
+    gap: 0.5rem;
+}

@@ -1,0 +1,32 @@
+<form [formGroup]="checkoutForm" class="form-container" (ngSubmit)="onSubmit()">
+    <!-- <div class="form-group">
+        <label for="mode">Delivery Mode : </label>
+        <input type="text" id="mode" class="form-field" formControlName="deliveryMode">
+    </div> -->
+
+    <div class="form-group">
+        <label for="shippingMethod">Select Fulfillment Method:</label>
+        <select id="shippingMethod" formControlName="deliveryMode" class="form-field">
+            <option value="pickup">In-Store Pickup (Free)</option>
+            <option value="delivery">Home Delivery ($5.00)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Address : </label>
+        <input type="text" id='address' class="form-field" formControlName="deliveryAddress">
+
+        @if (addressControl.invalid && addressControl.touched ) {
+        @if (addressControl.errors?.['required']) {
+        <small class="text-red-500">Delivery address is strictly required for shipping.</small>
+        }
+        @if (addressControl.errors?.['minlength']) {
+        <small class="text-red-500">Address must be at least 10 characters long.</small>
+        }
+        }
+
+    </div>
+
+    <button type="submit" class="px-4 py-1 bg-slate-600 text-white hover:bg-slate-700 cursor-pointer rounded"> Submit
+    </button>
+</form>

@@ -1,0 +1,49 @@
+<div class="form-wrapper">
+    <h2>Dynamic Account Registry</h2>
+
+    @if (dynamicForm) {
+    <form [formGroup]="dynamicForm" class="form-container" (ngSubmit)="onSubmit()">
+
+        <!-- Loop through each configuration metadata item in the JSON schema map -->
+        @for (field of formConfig; track field.key) {
+        <div class="form-control-block" class="form-group">
+            <label [for]="field.key">{{ field.label }}</label>
+
+            <!-- Branch 1: Standard text/number fields -->
+            @if (field.type === 'text' || field.type === 'number') {
+            <input [id]="field.key" [type]="field.type" [formControlName]="field.key" class="form-field" />
+            }
+
+            <!-- Branch 2: Select drop-down configurations -->
+            @if (field.type === 'select') {
+            <select [id]="field.key" [formControlName]="field.key" class="form-field">
+                @for (opt of field.options; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+                }
+            </select>
+            }
+
+            <!-- Branch 3: Standard boolean switches -->
+            @if (field.type === 'checkbox') {
+            <input [id]="field.key" type="checkbox" [formControlName]="field.key" class="form-field" />
+            }
+
+            <!-- UNIFIED CONDITIONAL STATE WRAPPER ERROR MESSAGES -->
+            @if (getControl(field.key).invalid && getControl(field.key).touched) {
+            <div class="error-msg-wrapper">
+                @if (getControl(field.key).errors?.['required'] || getControl(field.key).errors?.['requiredTrue']) {
+                <small>{{ field.label }} is explicitly required.</small>
+                }
+                @if (getControl(field.key).errors?.['minlength']) {
+                <small>Minimum required structural length is {{ field.minLength }} characters.</small>
+                }
+            </div>
+            }
+        </div>
+        }
+
+        <button type="submit" class="px-4 py-1 bg-slate-600 text-white hover:bg-slate-700 cursor-pointer rounded"
+            [disabled]="dynamicForm.invalid">Submit Registry</button>
+    </form>
+    }
+</div>

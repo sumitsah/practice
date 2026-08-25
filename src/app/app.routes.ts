@@ -16,5 +16,13 @@ export const routes: Routes = [
     {
         path: 'dynamic-component',
         loadComponent: () => import('./dynamic-comp-container/dynamic-comp-container').then(m => m.DynamicCompContainer)
+    },
+    {
+        path: 'forms',
+        loadComponent: () => import('./forms/forms').then(m => m.Forms)
+    },
+    {
+        path: 'dynamic-form',
+        loadComponent: () => import('./dynamic-form/dynamic-form').then(m => m.DynamicForm)
     }
 ];
