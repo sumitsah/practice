@@ -1,4 +1,4 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, linkedSignal, signal, untracked } from '@angular/core';
 
 @Component({
   selector: 'app-signal',
@@ -20,6 +20,11 @@ export class Signal {
     age: 29
   })
 
+  shippingOptions = signal(['Standard', 'Express']);
+
+  // Defaults to index 0, but can be updated later!
+  selectedOption = linkedSignal(() => this.shippingOptions());
+
   increment() {
     this.normalCounter++;
     // this.signalCounter.update(v => v + 1)
@@ -27,9 +32,17 @@ export class Signal {
 
   constructor() {
     effect((onCleanup) => {
+      // this.signalCounter.update(v => v + 1) can not be run inside the effect signal.
       console.log(`effect ran `, this.signalCounter())
-
+      // const v = this.signalCounter()
+      // untracked(() => {
+      //   if (v == 1) {
+      //     this.signalCounter.update(v => v + 1)
+      //     console.log(v)
+      //   }
+      // })
       onCleanup(() => console.log(`cleaning the memory`))
+
     })
   }
 
@@ -46,6 +59,7 @@ export class Signal {
     //   console.log(`In memory -> Normal: ${this.normalCounter}, Signal: ${this.signalCounter()}`);
     // }, 1000);
 
+    console.log(this.selectedOption())
 
     setTimeout(() => {
 
